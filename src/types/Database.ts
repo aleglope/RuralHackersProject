@@ -54,6 +54,14 @@ export type Database = {
           total_hotel_nights: number | null;
           user_type: Database["public"]["Enums"]["user_type_enum"];
           user_type_other_details: string | null;
+          accredited_role:
+            | Database["public"]["Enums"]["accredited_role_enum"]
+            | null;
+          accredited_role_other_details: string | null;
+          organization_staff_details: string | null;
+          transport_service_type:
+            | Database["public"]["Enums"]["transport_service_type_enum"]
+            | null;
         };
         Insert: {
           comments?: string | null;
@@ -63,6 +71,14 @@ export type Database = {
           total_hotel_nights?: number | null;
           user_type: Database["public"]["Enums"]["user_type_enum"];
           user_type_other_details?: string | null;
+          accredited_role?:
+            | Database["public"]["Enums"]["accredited_role_enum"]
+            | null;
+          accredited_role_other_details?: string | null;
+          organization_staff_details?: string | null;
+          transport_service_type?:
+            | Database["public"]["Enums"]["transport_service_type_enum"]
+            | null;
         };
         Update: {
           comments?: string | null;
@@ -72,6 +88,14 @@ export type Database = {
           total_hotel_nights?: number | null;
           user_type?: Database["public"]["Enums"]["user_type_enum"];
           user_type_other_details?: string | null;
+          accredited_role?:
+            | Database["public"]["Enums"]["accredited_role_enum"]
+            | null;
+          accredited_role_other_details?: string | null;
+          organization_staff_details?: string | null;
+          transport_service_type?:
+            | Database["public"]["Enums"]["transport_service_type_enum"]
+            | null;
         };
         Relationships: [
           {
@@ -88,10 +112,9 @@ export type Database = {
           calculated_carbon_footprint: number | null;
           carbon_compensated: boolean | null;
           created_at: string | null;
-          start_date: string | null;
-          end_date: string | null;
           destination: string | null;
           distance: number | null;
+          end_date: string | null;
           frequency: number | null;
           fuel_type: string | null;
           fuel_type_other_details: string | null;
@@ -101,6 +124,7 @@ export type Database = {
           passengers: number | null;
           return_trip: boolean | null;
           segment_order: number | null;
+          start_date: string | null;
           submission_id: number;
           truck_size: string | null;
           van_size: string | null;
@@ -111,10 +135,9 @@ export type Database = {
           calculated_carbon_footprint?: number | null;
           carbon_compensated?: boolean | null;
           created_at?: string | null;
-          start_date?: string | null;
-          end_date?: string | null;
           destination?: string | null;
           distance?: number | null;
+          end_date?: string | null;
           frequency?: number | null;
           fuel_type?: string | null;
           fuel_type_other_details?: string | null;
@@ -124,6 +147,7 @@ export type Database = {
           passengers?: number | null;
           return_trip?: boolean | null;
           segment_order?: number | null;
+          start_date?: string | null;
           submission_id: number;
           truck_size?: string | null;
           van_size?: string | null;
@@ -134,10 +158,9 @@ export type Database = {
           calculated_carbon_footprint?: number | null;
           carbon_compensated?: boolean | null;
           created_at?: string | null;
-          start_date?: string | null;
-          end_date?: string | null;
           destination?: string | null;
           distance?: number | null;
+          end_date?: string | null;
           frequency?: number | null;
           fuel_type?: string | null;
           fuel_type_other_details?: string | null;
@@ -147,6 +170,7 @@ export type Database = {
           passengers?: number | null;
           return_trip?: boolean | null;
           segment_order?: number | null;
+          start_date?: string | null;
           submission_id?: number;
           truck_size?: string | null;
           van_size?: string | null;
@@ -196,11 +220,26 @@ export type Database = {
       user_type_enum:
         | "public"
         | "participant"
-        | "logistics"
+        | "event_staff_accredited"
+        | "internal_staff_organization"
+        | "transport_services_stakeholders"
         | "provider"
+        | "logistics"
         | "staff"
         | "other";
       van_truck_size_enum: "<7.5t" | "7.5-12t" | "20-26t" | "34-40t" | "50-60t";
+      accredited_role_enum:
+        | "loc"
+        | "vip"
+        | "timing"
+        | "photo"
+        | "media"
+        | "tv_production"
+        | "sports_delegations"
+        | "other_accredited_role";
+      transport_service_type_enum:
+        | "spectator_shuttle_bus"
+        | "team_transport_services";
     };
     CompositeTypes: {
       [_ in never]: never;
@@ -340,12 +379,29 @@ export const Constants = {
       user_type_enum: [
         "public",
         "participant",
-        "logistics",
+        "event_staff_accredited",
+        "internal_staff_organization",
+        "transport_services_stakeholders",
         "provider",
+        "logistics",
         "staff",
         "other",
       ],
       van_truck_size_enum: ["<7.5t", "7.5-12t", "20-26t", "34-40t", "50-60t"],
+      accredited_role_enum: [
+        "loc",
+        "vip",
+        "timing",
+        "photo",
+        "media",
+        "tv_production",
+        "sports_delegations",
+        "other_accredited_role",
+      ],
+      transport_service_type_enum: [
+        "spectator_shuttle_bus",
+        "team_transport_services",
+      ],
     },
   },
 } as const;

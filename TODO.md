@@ -36,11 +36,21 @@ Aplicación diseñada para facilitar la recepción de datos de transporte para E
 
 ### Otros:
 
-- [ ] 13. Aunque el evento Portamérica 2025 está bien guardado para hacer modificaciones después, ahora urge más el Campeonato Mundial de Triatlón Multideporte Pontevedra 2025.
+- [x] 13. Aunque el evento Portamérica 2025 está bien guardado para hacer modificaciones después, ahora urge más el Campeonato Mundial de Triatlón Multideporte Pontevedra 2025.
 
 ### La tipología de personas usuarias en el caso del Campeonato Mundial de Triatlón Multideporte Pontevedra 2025 es:
 
 - [ ] 14. Asistentes acreditados al EVENTO , diferenciando entre: LOC, VIP, Timing, Foto, Medios, Producción de TV, Delegaciones deportivas, otro (especificar). Personas que trabajan para preparar y organizar el evento , incluyendo los servicios de transporte del personal. (Deben tener un espacio para especificar, por ejemplo, descripción). Servicios de transporte prestados a otras partes interesadas , eligiendo entre autobuses lanzadera para los espectadores y servicios de transporte para los equipos (aeropuerto-sede). Público. Proveedores. El alojamiento solo hay que pedirlo a asistentes acreditados al evento y al público. (`TravelForm.tsx`, `TravelSegment.tsx`, posiblemente `Database.ts` si hay nuevos enums o tablas)
+  - **En progreso:**
+    - Actualizados los tipos en `project/src/types/index.ts` (`UserType`, `AccreditedRole`, `TransportServiceType` y `TravelData`).
+    - Actualizadas las traducciones en `en.json`, `es.json` y `gl.json` (incluida limpieza de claves obsoletas).
+    - Actualizado `TravelForm.tsx` con:
+      - Esquema Zod para nuevos campos y validaciones.
+      - Lógica de visualización condicional para nuevos campos de entrada.
+      - Lógica de pasos ajustada para la solicitud de alojamiento (solo a "public" y "event_staff_accredited").
+      - Nuevos componentes (`AccreditedRoleInput`, `OrganizationStaffDetailsInput`, `TransportServiceTypeInput`).
+      - Guardado de nuevos campos en la base de datos.
+  - **Pendiente:** Pruebas exhaustivas. Revisión de `Database.ts` si es necesario para esquemas/interacciones de BD adicionales.
   - Rama: `feature/event-pontevedra-2025-config`
 
 ## Ramas de desarrollo:

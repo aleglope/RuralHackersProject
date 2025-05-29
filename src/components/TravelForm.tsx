@@ -9,7 +9,12 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useParams, useNavigate } from "react-router-dom";
-import { UserType, TravelData } from "../types";
+import {
+  UserType,
+  TravelData,
+  AccreditedRole,
+  TransportServiceType,
+} from "../types";
 import TravelSegment from "./TravelSegment";
 import ResultsSection from "./ResultsSection";
 import { supabase } from "../lib/supabase";
@@ -20,12 +25,32 @@ const travelFormSchema = z
     userType: z.enum([
       "public",
       "participant",
-      "logistics",
+      "event_staff_accredited",
+      "internal_staff_organization",
+      "transport_services_stakeholders",
       "provider",
+      "logistics",
       "staff",
       "other",
     ]),
     userTypeOtherDetails: z.string().optional(),
+    accreditedRole: z
+      .enum([
+        "loc",
+        "vip",
+        "timing",
+        "photo",
+        "media",
+        "tv_production",
+        "sports_delegations",
+        "other_accredited_role",
+      ])
+      .optional(),
+    accreditedRoleOtherDetails: z.string().optional(),
+    organizationStaffDetails: z.string().optional(),
+    transportServiceType: z
+      .enum(["spectator_shuttle_bus", "team_transport_services"])
+      .optional(),
     segments: z.array(
       z
         .object({
@@ -43,7 +68,14 @@ const travelFormSchema = z
           ]),
           vehicleTypeOtherDetails: z.string().optional(),
           fuelType: z
-            .enum(["gasoline", "diesel", "hybrid", "pluginHybrid", "electric"])
+            .enum([
+              "gasoline",
+              "diesel",
+              "hybrid",
+              "pluginHybrid",
+              "electric",
+              "unknown",
+            ])
             .optional(),
           passengers: z.number().min(1).optional(),
           vanSize: z.enum(["<7.5t", "7.5-12t"]).optional(),
@@ -92,12 +124,25 @@ const travelFormSchema = z
   .superRefine((data, ctx) => {
     if (
       data.userType === "other" &&
-      (!data.userTypeOtherDetails || data.userTypeOtherDetails.trim() === "")
+      (typeof data.userTypeOtherDetails !== "string" ||
+        data.userTypeOtherDetails.trim() === "")
     ) {
       ctx.addIssue({
         code: z.ZodIssueCode.custom,
         path: ["userTypeOtherDetails"],
-        message: 'Specification for "Other" user type is required',
+        message: "userType.specifyOther",
+      });
+    }
+    if (
+      data.userType === "event_staff_accredited" &&
+      data.accreditedRole === "other_accredited_role" &&
+      (typeof data.accreditedRoleOtherDetails !== "string" ||
+        data.accreditedRoleOtherDetails.trim() === "")
+    ) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        path: ["accreditedRoleOtherDetails"],
+        message: "userType.specifyAccreditedRoleOther",
       });
     }
   });
@@ -151,6 +196,165 @@ const UserTypeOtherInput = () => {
   return null;
 };
 
+// New component for Accredited Role
+const AccreditedRoleInput = () => {
+  const { t } = useTranslation();
+  const {
+    control,
+    register,
+    formState: { errors },
+  } = useFormContext<TravelData>();
+  const userType = useWatch({ control, name: "userType" });
+  const accreditedRole = useWatch({ control, name: "accreditedRole" });
+
+  const accreditedRoles: AccreditedRole[] = [
+    "loc",
+    "vip",
+    "timing",
+    "photo",
+    "media",
+    "tv_production",
+    "sports_delegations",
+    "other_accredited_role",
+  ];
+
+  if (userType === "event_staff_accredited") {
+    return (
+      <div className="mt-4 space-y-2">
+        <div>
+          <label
+            htmlFor="accreditedRole"
+            className="block text-sm font-medium text-gray-700 mb-1"
+          >
+            {t("userType.accreditedRole")}
+          </label>
+          <select
+            id="accreditedRole"
+            {...register("accreditedRole")}
+            className="w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+          >
+            <option value="">{t("userType.selectAccreditedRole")}</option>
+            {accreditedRoles.map((role) => (
+              <option key={role} value={role}>
+                {t(`userType.${role}`)}
+              </option>
+            ))}
+          </select>
+          {errors.accreditedRole && (
+            <p className="mt-1 text-sm text-red-600">
+              {errors.accreditedRole.message?.toString()}
+            </p>
+          )}
+        </div>
+        {accreditedRole === "other_accredited_role" && (
+          <div>
+            <label
+              htmlFor="accreditedRoleOtherDetails"
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              {t("userType.specifyAccreditedRoleOther")}
+            </label>
+            <input
+              type="text"
+              id="accreditedRoleOtherDetails"
+              {...register("accreditedRoleOtherDetails")}
+              className="w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+            />
+            {errors.accreditedRoleOtherDetails && (
+              <p className="mt-1 text-sm text-red-600">
+                {errors.accreditedRoleOtherDetails.message?.toString()}
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+    );
+  }
+  return null;
+};
+
+// New component for Organization Staff Details
+const OrganizationStaffDetailsInput = () => {
+  const { t } = useTranslation();
+  const {
+    control,
+    register,
+    formState: { errors },
+  } = useFormContext<TravelData>();
+  const userType = useWatch({ control, name: "userType" });
+
+  if (userType === "internal_staff_organization") {
+    return (
+      <div className="mt-4">
+        <label
+          htmlFor="organizationStaffDetails"
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
+          {t("userType.organizationStaffDetails")}
+        </label>
+        <textarea
+          id="organizationStaffDetails"
+          {...register("organizationStaffDetails")}
+          className="w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+          rows={3}
+        />
+        {errors.organizationStaffDetails && (
+          <p className="mt-1 text-sm text-red-600">
+            {errors.organizationStaffDetails.message?.toString()}
+          </p>
+        )}
+      </div>
+    );
+  }
+  return null;
+};
+
+// New component for Transport Service Type
+const TransportServiceTypeInput = () => {
+  const { t } = useTranslation();
+  const {
+    control,
+    register,
+    formState: { errors },
+  } = useFormContext<TravelData>();
+  const userType = useWatch({ control, name: "userType" });
+  const transportServiceTypes: TransportServiceType[] = [
+    "spectator_shuttle_bus",
+    "team_transport_services",
+  ];
+
+  if (userType === "transport_services_stakeholders") {
+    return (
+      <div className="mt-4">
+        <label
+          htmlFor="transportServiceType"
+          className="block text-sm font-medium text-gray-700 mb-1"
+        >
+          {t("userType.transportServiceType")}
+        </label>
+        <select
+          id="transportServiceType"
+          {...register("transportServiceType")}
+          className="w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+        >
+          <option value="">{t("userType.selectTransportServiceType")}</option>
+          {transportServiceTypes.map((type) => (
+            <option key={type} value={type}>
+              {t(`userType.${type}`)}
+            </option>
+          ))}
+        </select>
+        {errors.transportServiceType && (
+          <p className="mt-1 text-sm text-red-600">
+            {errors.transportServiceType.message?.toString()}
+          </p>
+        )}
+      </div>
+    );
+  }
+  return null;
+};
+
 const TravelForm = () => {
   const { t } = useTranslation();
   const { slug } = useParams<{ slug: string }>();
@@ -161,7 +365,12 @@ const TravelForm = () => {
     resolver: zodResolver(travelFormSchema),
     defaultValues: {
       segments: [defaultSegment],
+      userType: undefined,
       userTypeOtherDetails: "",
+      accreditedRole: undefined,
+      accreditedRoleOtherDetails: "",
+      organizationStaffDetails: "",
+      transportServiceType: undefined,
     },
     mode: "onChange",
   });
@@ -169,8 +378,11 @@ const TravelForm = () => {
   const userTypes: UserType[] = [
     "public",
     "participant",
-    "logistics",
+    "event_staff_accredited",
+    "internal_staff_organization",
+    "transport_services_stakeholders",
     "provider",
+    "logistics",
     "staff",
     "other",
   ];
@@ -194,6 +406,13 @@ const TravelForm = () => {
         user_type: data.userType,
         user_type_other_details:
           data.userType === "other" ? data.userTypeOtherDetails : null,
+        accredited_role: data.accreditedRole,
+        accredited_role_other_details:
+          data.accreditedRole === "other_accredited_role"
+            ? data.accreditedRoleOtherDetails
+            : null,
+        organization_staff_details: data.organizationStaffDetails,
+        transport_service_type: data.transportServiceType,
         total_hotel_nights: data.hotelNights,
         comments: data.comments,
       };
@@ -269,7 +488,7 @@ const TravelForm = () => {
   };
 
   const onSubmit = async (data: TravelData) => {
-    if (step < (isPublicOrParticipant ? 4 : 3)) {
+    if (step < maxSteps) {
       setStep(step + 1);
     } else {
       const success = await saveToDatabase(data);
@@ -297,10 +516,12 @@ const TravelForm = () => {
   };
 
   const [step, setStep] = useState(1);
-  const isPublicOrParticipant =
-    methods.watch("userType") === "public" ||
-    methods.watch("userType") === "participant";
-  const maxSteps = isPublicOrParticipant ? 4 : 3;
+  const currentUserType = methods.watch("userType");
+  const shouldShowAccommodationStep =
+    currentUserType === "public" ||
+    currentUserType === "event_staff_accredited";
+
+  const maxSteps = shouldShowAccommodationStep ? 4 : 3;
 
   if (step === maxSteps && formData) {
     return <ResultsSection data={formData} onBack={() => setStep(step - 1)} />;
@@ -318,7 +539,11 @@ const TravelForm = () => {
               {userTypes.map((type) => (
                 <label
                   key={type}
-                  className="relative flex items-center p-4 border rounded-lg cursor-pointer hover:bg-green-50"
+                  className={`relative flex items-center p-4 border rounded-lg cursor-pointer hover:bg-green-50 ${
+                    methods.watch("userType") === type
+                      ? "bg-green-50 border-green-500"
+                      : "border-gray-300"
+                  }`}
                 >
                   <input
                     type="radio"
@@ -332,7 +557,8 @@ const TravelForm = () => {
             </div>
             {methods.formState.errors.userType && (
               <p className="mt-1 text-sm text-red-600">
-                {t("userType.required")}
+                {typeof methods.formState.errors.userType.message ===
+                  "string" && t(methods.formState.errors.userType.message)}
               </p>
             )}
             {methods.formState.errors.root?.serverError && (
@@ -341,6 +567,10 @@ const TravelForm = () => {
               </p>
             )}
             <UserTypeOtherInput />
+            {/* Placeholder for new conditional inputs */}
+            <AccreditedRoleInput />
+            <OrganizationStaffDetailsInput />
+            <TransportServiceTypeInput />
           </div>
         )}
 
@@ -386,7 +616,7 @@ const TravelForm = () => {
           </div>
         )}
 
-        {step === 3 && isPublicOrParticipant && (
+        {step === 3 && shouldShowAccommodationStep && (
           <div>
             <h2 className="text-xl font-semibold mb-4">
               {t("accommodation.title")}
@@ -410,8 +640,8 @@ const TravelForm = () => {
           </div>
         )}
 
-        {((isPublicOrParticipant && step === 4) ||
-          (!isPublicOrParticipant && step === 3)) && (
+        {((shouldShowAccommodationStep && step === 4) ||
+          (!shouldShowAccommodationStep && step === 3)) && (
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               {t("common.comments")}
@@ -443,7 +673,7 @@ const TravelForm = () => {
           >
             {isSubmitting
               ? t("common.submitting")
-              : step < (isPublicOrParticipant ? 4 : 3)
+              : step < maxSteps
               ? t("common.next")
               : t("common.submit")}
           </button>
