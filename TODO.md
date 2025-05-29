@@ -14,16 +14,16 @@ Aplicación diseñada para facilitar la recepción de datos de transporte para E
   - Rama: `feature/participant-type-reporting`
 - [x] 4. Ahora mismo parece que no funciona bien ese dato, ya que pone que el total de participantes son 5, mostrando por tipo de usuario 1 de público, 13 de proveedores, 7 de logística, 3 de participantes y 1 de personal. Revisarlo. (`ResultsSection.tsx`, `EventResults.tsx`) - **Completado: Abordado con los cambios del punto 3, que modifican cómo se presenta esta información.**
   - Rama: `feature/participant-type-reporting` (o `bugfix/participant-count-display`)
-- [x] 5. En la pantalla de tipo de transporte debería poner Tipología de persona usuaria. En el caso de seleccionar "otro", debe obligarse a especificarlo (con un cuadro de introducción de texto). (`TravelForm.tsx`, `TravelSegment.tsx`)
+- [x] 5. En la pantalla de tipo de transporte debería poner Tipología de persona usuaria. En el caso de seleccionar "otro", debe obligarse a especificarlo (con un cuadro de introducción de texto). (`TravelForm.tsx`, `TravelSegment.tsx`) - **Completado: Se cambió la etiqueta a "Tipología de persona usuaria", se hizo obligatorio especificar "Otro" y se actualizaron esquemas, tipos y traducciones.**
   - Rama: `feature/user-typology-selection`
 
 ### En la pantalla de tramos del viaje:
 
-- [ ] 6. Debe verse la tipología de persona usuaria seleccionada anteriormente. La distancia tiene que ser opcional rellenarla, pero origen y destino, obligatorios. En tipo de vehículo, tiene que haber posibilidad de especificar en caso de elegir "otro". (`TravelForm.tsx`, `TravelSegment.tsx`)
+- [x] 6. Debe verse la tipología de persona usuaria seleccionada anteriormente. La distancia tiene que ser opcional rellenarla, pero origen y destino, obligatorios. En tipo de vehículo, tiene que haber posibilidad de especificar en caso de elegir "otro". (`TravelForm.tsx`, `TravelSegment.tsx`) - **Completado: Se mostró la tipología de usuario, se hicieron obligatorios origen y destino, y se añadió campo condicional para 'otro' vehículo.**
   - Rama: `feature/travel-segments-basic-fields`
-- [ ] 7. Quitar la opción de ida y vuelta. Queda más simple indicando solo la frecuencia (número de viajes). (`TravelSegment.tsx`, `TravelForm.tsx`)
+- [x] 7. Quitar la opción de ida y vuelta. Queda más simple indicando solo la frecuencia (número de viajes). (`TravelSegment.tsx`, `TravelForm.tsx`) - **Completado: Se eliminó la opción 'ida y vuelta', usando solo frecuencia.**
   - Rama: `feature/travel-segments-frequency-dates`
-- [ ] 8. Tiene que haber dos fechas (desde y hasta), de manera que si coinciden, todo el tramo fue realizado en un mismo día, y si hay un intervalo, se realizó en ese período. En tipo de combustible, tiene que haber la opción de "combustible desconocido" en el caso de seleccionar moto, coche, furgoneta, autobús y camión. (`TravelSegment.tsx`, `TravelForm.tsx`)
+- [x] 8. Tiene que haber dos fechas (desde y hasta), de manera que si coinciden, todo el tramo fue realizado en un mismo día, y si hay un intervalo, se realizó en ese período. En tipo de combustible, tiene que haber la opción de "combustible desconocido" en el caso de seleccionar moto, coche, furgoneta, autobús y camión. (`TravelSegment.tsx`, `TravelForm.tsx`) - **Completado: Se implementaron fechas 'desde/hasta' (con validación y restricción de no poder seleccionar días anteriores al actual), se añadió 'combustible desconocido' y se corrigieron placeholders de selectores.**
   - Rama: `feature/travel-segments-frequency-dates` (para las fechas) y `feature/travel-segments-fuel-emission-offset` (para el combustible)
 - [ ] 9. El autobús tiene que tener opción de seleccionar el tipo de combustible.
   - Rama: `feature/travel-segments-fuel-emission-offset`
@@ -36,29 +36,4 @@ Aplicación diseñada para facilitar la recepción de datos de transporte para E
 
 ### Otros:
 
-- [ ] 13. Aunque el evento Portamérica 2025 está bien guardado para hacer modificaciones después, ahora urge más el Campeonato Mundial de Triatlón Multideporte Pontevedra 2025. (`TravelForm.tsx`, `TravelSegment.tsx` - podría implicar cambios en datos por defecto o lógica específica si fuera necesario)
-  - Rama: `feature/event-pontevedra-2025-config`
-
-### La tipología de personas usuarias en el caso del Campeonato Mundial de Triatlón Multideporte Pontevedra 2025 es:
-
-- [ ] 14. Asistentes acreditados al EVENTO , diferenciando entre: LOC, VIP, Timing, Foto, Medios, Producción de TV, Delegaciones deportivas, otro (especificar). Personas que trabajan para preparar y organizar el evento , incluyendo los servicios de transporte del personal. (Deben tener un espacio para especificar, por ejemplo, descripción). Servicios de transporte prestados a otras partes interesadas , eligiendo entre autobuses lanzadera para los espectadores y servicios de transporte para los equipos (aeropuerto-sede). Público. Proveedores. El alojamiento solo hay que pedirlo a asistentes acreditados al evento y al público. (`TravelForm.tsx`, `TravelSegment.tsx`, posiblemente `Database.ts` si hay nuevos enums o tablas)
-  - Rama: `feature/event-pontevedra-2025-config`
-
-## Ramas de desarrollo:
-
-- `feature/home-aggregated-results`
-- `feature/carbon-footprint-transport-accommodation`
-- `feature/participant-type-reporting`
-- `feature/user-typology-selection`
-- `feature/travel-segments-basic-fields`
-- `feature/travel-segments-frequency-dates`
-- `feature/travel-segments-fuel-emission-offset`
-- `feature/travel-segments-people-vehicles`
-- `feature/travel-segments-example`
-- `feature/event-pontevedra-2025-config`
-
-### Ramas auxiliares (opcional):
-
-- `refactor/travel-segment-components`
-- `chore/i18n-spanish-translations`
-- `bugfix/participant-count-display`
+- [ ] 13. Aunque el evento Portamérica 2025 está bien guardado para hacer modificaciones después, ahora urge más el Campeonato Mundial de Triatlón Multideporte Pontevedra 2025. (`TravelForm.tsx`, `TravelSegment.tsx`

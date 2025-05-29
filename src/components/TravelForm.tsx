@@ -26,9 +26,9 @@ const travelFormSchema = z
       "other",
     ]),
     userTypeOtherDetails: z.string().optional(),
-    segments: z
-      .array(
-        z.object({
+    segments: z.array(
+      z
+        .object({
           vehicleType: z.enum([
             "walking",
             "bicycle",
@@ -41,6 +41,7 @@ const travelFormSchema = z
             "plane",
             "other",
           ]),
+          vehicleTypeOtherDetails: z.string().optional(),
           fuelType: z
             .enum(["gasoline", "diesel", "hybrid", "pluginHybrid", "electric"])
             .optional(),
@@ -50,15 +51,40 @@ const travelFormSchema = z
             .enum(["<7.5t", "7.5-12t", "20-26t", "34-40t", "50-60t"])
             .optional(),
           carbonCompensated: z.boolean().optional(),
-          date: z.string().optional(),
+          startDate: z.string().optional(),
+          endDate: z.string().optional(),
           distance: z.number().min(0).optional(),
-          origin: z.string().optional(),
-          destination: z.string().optional(),
-          returnTrip: z.boolean().optional(),
+          origin: z.string().min(1, { message: "validation.originRequired" }),
+          destination: z
+            .string()
+            .min(1, { message: "validation.destinationRequired" }),
           frequency: z.number().min(1).optional(),
         })
-      )
-      .min(1),
+        .superRefine((data, ctx) => {
+          if (
+            data.vehicleType === "other" &&
+            (!data.vehicleTypeOtherDetails ||
+              data.vehicleTypeOtherDetails.trim() === "")
+          ) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              path: ["vehicleTypeOtherDetails"],
+              message: "validation.vehicleTypeOtherRequired",
+            });
+          }
+          if (
+            data.startDate &&
+            data.endDate &&
+            new Date(data.endDate) < new Date(data.startDate)
+          ) {
+            ctx.addIssue({
+              code: z.ZodIssueCode.custom,
+              path: ["endDate"],
+              message: "validation.endDateAfterStartDate",
+            });
+          }
+        })
+    ),
     hotelNights: z.number().min(0).optional(),
     comments: z.string().optional(),
   })
@@ -79,12 +105,13 @@ const defaultSegment = {
   vehicleType: "car" as const,
   fuelType: "diesel" as const,
   passengers: 1,
-  date: new Date().toISOString().split("T")[0],
+  startDate: new Date().toISOString().split("T")[0],
+  endDate: new Date().toISOString().split("T")[0],
   distance: 500,
   origin: "Madrid",
   destination: "Pontevedra",
-  returnTrip: false,
   frequency: 1,
+  vehicleTypeOtherDetails: "",
 };
 
 const UserTypeOtherInput = () => {
@@ -188,24 +215,23 @@ const TravelForm = () => {
           // Note: hotel_nights per segment is removed as total_hotel_nights is in the submission table
           return {
             submission_id: submissionId,
-            // event_id is NOT needed here as it's linked via submission
-            // user_type is NOT needed here as it's in the submission
             vehicle_type: segment.vehicleType,
+            vehicle_type_other_details:
+              segment.vehicleType === "other"
+                ? segment.vehicleTypeOtherDetails
+                : null,
             fuel_type: segment.fuelType,
             passengers: segment.passengers,
             van_size: segment.vanSize,
             truck_size: segment.truckSize,
             calculated_carbon_footprint: carbonFootprint, // Ensure this matches DB column name
             carbon_compensated: segment.carbonCompensated,
-            date: segment.date,
+            start_date: segment.startDate,
+            end_date: segment.endDate,
             distance: segment.distance,
             origin: segment.origin,
             destination: segment.destination,
-            return_trip: segment.returnTrip,
             frequency: segment.frequency,
-            // comments are NOT needed here as they are in the submission
-            // vehicle_type_other_details and fuel_type_other_details are not in current TravelData segment type
-            // but if they were, they would be segment.vehicle_type_other_details etc.
           };
         });
 
@@ -321,6 +347,16 @@ const TravelForm = () => {
             <h2 className="text-xl font-semibold mb-4">
               {t("transport.segments")}
             </h2>
+            <p className="text-sm text-muted-foreground mb-2">
+              {t("userType.title")}:{" "}
+              <span className="font-medium">
+                {t(
+                  methods.watch("userType")
+                    ? `userType.${methods.watch("userType")}`
+                    : ""
+                )}
+              </span>
+            </p>
             {methods.watch("segments")?.map((_, index) => (
               <TravelSegment
                 key={index}
@@ -335,11 +371,6 @@ const TravelForm = () => {
             >
               {t("transport.addSegment")}
             </button>
-            {methods.formState.errors.segments && (
-              <p className="mt-1 text-sm text-red-600">
-                {t("transport.segmentsRequired")}
-              </p>
-            )}
           </div>
         )}
 

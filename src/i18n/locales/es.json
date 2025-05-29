@@ -48,12 +48,14 @@
     "plane": "Avión",
     "other": "Otro",
     "fuelType": "Tipo de combustible",
+    "selectFuelType": "Selecciona un tipo de combustible",
     "fuel": {
       "gasoline": "Gasolina",
       "diesel": "Diésel",
       "hybrid": "Híbrido",
       "pluginHybrid": "Híbrido enchufable",
-      "electric": "Eléctrico"
+      "electric": "Eléctrico",
+      "unknown": "Combustible desconocido"
     },
     "passengers": "Número de personas",
     "vanSize": "Tonelaje",
@@ -64,7 +66,12 @@
     "origin": "Punto de partida",
     "destination": "Destino",
     "returnTrip": "Viaje de vuelta igual",
-    "frequency": "Frecuencia (número de veces)"
+    "frequency": "Frecuencia (número de veces)",
+    "specifyVehicleOther": "Por favor, especifica el tipo de vehículo 'Otro'",
+    "startDate": "Fecha de inicio",
+    "endDate": "Fecha de fin",
+    "selectVehicleType": "Selecciona un tipo de vehículo",
+    "fuelTypeRequired": "El tipo de combustible es obligatorio para este vehículo"
   },
   "accommodation": {
     "title": "Alojamiento",
@@ -115,5 +122,11 @@
   },
   "error": {
     "savingData": "Error al guardar los datos. Por favor, inténtalo de nuevo."
+  },
+  "validation": {
+    "originRequired": "El punto de partida es obligatorio",
+    "destinationRequired": "El destino es obligatorio",
+    "vehicleTypeOtherRequired": "La especificación para el tipo de vehículo 'Otro' es obligatoria",
+    "endDateAfterStartDate": "La fecha de fin no puede ser anterior a la fecha de inicio"
   }
 }

@@ -48,12 +48,14 @@
     "plane": "Plane",
     "other": "Other",
     "fuelType": "Fuel type",
+    "selectFuelType": "Select a fuel type",
     "fuel": {
       "gasoline": "Gasoline",
       "diesel": "Diesel",
       "hybrid": "Hybrid",
       "pluginHybrid": "Plug-in hybrid",
-      "electric": "Electric"
+      "electric": "Electric",
+      "unknown": "Unknown fuel"
     },
     "passengers": "Number of passengers",
     "vanSize": "Tonnage",
@@ -64,7 +66,12 @@
     "origin": "Origin",
     "destination": "Destination",
     "returnTrip": "Same return trip",
-    "frequency": "Frequency (number of times)"
+    "frequency": "Frequency (number of times)",
+    "specifyVehicleOther": "Please specify the 'Other' vehicle type",
+    "startDate": "Start Date",
+    "endDate": "End Date",
+    "selectVehicleType": "Select a vehicle type",
+    "fuelTypeRequired": "Fuel type is required for this vehicle"
   },
   "accommodation": {
     "title": "Accommodation",
@@ -115,5 +122,11 @@
   },
   "error": {
     "savingData": "Error saving data. Please try again."
+  },
+  "validation": {
+    "originRequired": "Origin is required",
+    "destinationRequired": "Destination is required",
+    "vehicleTypeOtherRequired": "Specification for 'Other' vehicle type is required",
+    "endDateAfterStartDate": "End date cannot be before start date"
   }
 }
