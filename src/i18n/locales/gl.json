@@ -57,7 +57,7 @@
       "electric": "Eléctrico",
       "unknown": "Combustible descoñecido"
     },
-    "passengers": "Número de persoas",
+    "passengers": "Número de persoas (viaxando xuntas neste tramo)",
     "vanSize": "Tonelaxe",
     "truckSize": "Tonelaxe",
     "carbonCompensated": "A compañía compensou as emisións?",
@@ -71,7 +71,8 @@
     "startDate": "Data de inicio",
     "endDate": "Data de fin",
     "selectVehicleType": "Selecciona un tipo de vehículo",
-    "fuelTypeRequired": "O tipo de combustible é obrigatorio para este vehículo"
+    "fuelTypeRequired": "O tipo de combustible é obrigatorio para este vehículo",
+    "numberOfVehicles": "Número de vehículos"
   },
   "accommodation": {
     "title": "Aloxamento",
@@ -127,6 +128,7 @@
     "originRequired": "O punto de partida é obrigatorio",
     "destinationRequired": "O destino é obrigatorio",
     "vehicleTypeOtherRequired": "A especificación para o tipo de vehículo 'Outro' é obrigatoria",
-    "endDateAfterStartDate": "A data de fin non pode ser anterior á data de inicio"
+    "endDateAfterStartDate": "A data de fin non pode ser anterior á data de inicio",
+    "numberOfVehiclesRequired": "O número de vehículos é obrigatorio"
   }
 }

@@ -43,6 +43,7 @@ export interface TravelSegment {
   returnTrip?: boolean;
   frequency?: number;
   vehicleTypeOtherDetails?: string;
+  numberOfVehicles?: number;
 }
 
 export interface TravelData {

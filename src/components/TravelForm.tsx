@@ -59,6 +59,7 @@ const travelFormSchema = z
             .string()
             .min(1, { message: "validation.destinationRequired" }),
           frequency: z.number().min(1).optional(),
+          numberOfVehicles: z.number().min(1).optional(),
         })
         .superRefine((data, ctx) => {
           if (
@@ -112,6 +113,7 @@ const defaultSegment = {
   destination: "Pontevedra",
   frequency: 1,
   vehicleTypeOtherDetails: "",
+  numberOfVehicles: undefined,
 };
 
 const UserTypeOtherInput = () => {
@@ -212,7 +214,6 @@ const TravelForm = () => {
       if (data.segments && data.segments.length > 0) {
         const segmentsToInsert = data.segments.map((segment) => {
           const carbonFootprint = calculateSegmentCarbonFootprint(segment);
-          // Note: hotel_nights per segment is removed as total_hotel_nights is in the submission table
           return {
             submission_id: submissionId,
             vehicle_type: segment.vehicleType,
@@ -224,7 +225,7 @@ const TravelForm = () => {
             passengers: segment.passengers,
             van_size: segment.vanSize,
             truck_size: segment.truckSize,
-            calculated_carbon_footprint: carbonFootprint, // Ensure this matches DB column name
+            calculated_carbon_footprint: carbonFootprint,
             carbon_compensated: segment.carbonCompensated,
             start_date: segment.startDate,
             end_date: segment.endDate,
@@ -232,6 +233,7 @@ const TravelForm = () => {
             origin: segment.origin,
             destination: segment.destination,
             frequency: segment.frequency,
+            number_of_vehicles: segment.numberOfVehicles,
           };
         });
 

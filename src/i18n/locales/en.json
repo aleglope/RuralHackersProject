@@ -57,7 +57,7 @@
       "electric": "Electric",
       "unknown": "Unknown fuel"
     },
-    "passengers": "Number of passengers",
+    "passengers": "Number of people",
     "vanSize": "Tonnage",
     "truckSize": "Tonnage",
     "carbonCompensated": "Did the company offset emissions?",
@@ -71,7 +71,8 @@
     "startDate": "Start Date",
     "endDate": "End Date",
     "selectVehicleType": "Select a vehicle type",
-    "fuelTypeRequired": "Fuel type is required for this vehicle"
+    "fuelTypeRequired": "Fuel type is required for this vehicle",
+    "numberOfVehicles": "Number of vehicles"
   },
   "accommodation": {
     "title": "Accommodation",
@@ -127,6 +128,7 @@
     "originRequired": "Origin is required",
     "destinationRequired": "Destination is required",
     "vehicleTypeOtherRequired": "Specification for 'Other' vehicle type is required",
-    "endDateAfterStartDate": "End date cannot be before start date"
+    "endDateAfterStartDate": "End date cannot be before start date",
+    "numberOfVehiclesRequired": "Number of vehicles is required"
   }
 }

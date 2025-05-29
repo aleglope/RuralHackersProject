@@ -51,11 +51,17 @@ const TravelSegment: React.FC<TravelSegmentProps> = ({ index, onRemove }) => {
   const needsFuelType = ["car", "van", "motorcycle", "truck", "bus"].includes(
     vehicleType
   );
-  const needsPassengers = ["car", "van"].includes(vehicleType);
   const isVan = vehicleType === "van";
   const isTruck = vehicleType === "truck";
   const isPlane = vehicleType === "plane";
   const isOtherVehicle = vehicleType === "other";
+  const needsNumberOfVehicles = [
+    "car",
+    "motorcycle",
+    "van",
+    "truck",
+    "bus",
+  ].includes(vehicleType);
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -147,21 +153,19 @@ const TravelSegment: React.FC<TravelSegmentProps> = ({ index, onRemove }) => {
           </div>
         )}
 
-        {needsPassengers && (
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              {t("transport.passengers")}
-            </label>
-            <input
-              type="number"
-              min="1"
-              {...register(`segments.${index}.passengers`, {
-                valueAsNumber: true,
-              })}
-              className="w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
-            />
-          </div>
-        )}
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            {t("transport.passengers")}
+          </label>
+          <input
+            type="number"
+            min="1"
+            {...register(`segments.${index}.passengers`, {
+              valueAsNumber: true,
+            })}
+            className="w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+          />
+        </div>
 
         {isVan && (
           <div>
@@ -338,6 +342,38 @@ const TravelSegment: React.FC<TravelSegmentProps> = ({ index, onRemove }) => {
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
           />
         </div>
+
+        {needsNumberOfVehicles && (
+          <div>
+            <label
+              htmlFor={`segments.${index}.numberOfVehicles`}
+              className="block text-sm font-medium text-gray-700 mb-1"
+            >
+              {t("transport.numberOfVehicles")}
+            </label>
+            <input
+              type="number"
+              id={`segments.${index}.numberOfVehicles`}
+              min="1"
+              {...register(`segments.${index}.numberOfVehicles`, {
+                valueAsNumber: true,
+              })}
+              className="w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+            />
+            {errors.segments &&
+              Array.isArray(errors.segments) &&
+              errors.segments[index] &&
+              errors.segments[index]?.numberOfVehicles && (
+                <p className="mt-1 text-sm text-red-600">
+                  {t(
+                    (
+                      errors.segments[index]?.numberOfVehicles?.message || ""
+                    ).toString()
+                  )}
+                </p>
+              )}
+          </div>
+        )}
       </div>
     </div>
   );
