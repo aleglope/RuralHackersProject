@@ -70,7 +70,7 @@ export const calculateSegmentCarbonFootprint = (
       // Factors are per passenger-km
       emissionsPerTripPerVehicleOrPassenger =
         EMISSIONS_FACTORS[segment.vehicleType] * distance * passengers;
-      if (segment.vehicleType === "plane" && segment.carbonCompensated) {
+      if (segment.carbonCompensated) {
         emissionsPerTripPerVehicleOrPassenger *= 0.5;
       }
       break;

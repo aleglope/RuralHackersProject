@@ -54,6 +54,8 @@ const TravelSegment: React.FC<TravelSegmentProps> = ({ index, onRemove }) => {
   const isVan = vehicleType === "van";
   const isTruck = vehicleType === "truck";
   const isPlane = vehicleType === "plane";
+  const isTrain = vehicleType === "train";
+  const isBus = vehicleType === "bus";
   const isOtherVehicle = vehicleType === "other";
   const needsNumberOfVehicles = [
     "car",
@@ -205,7 +207,7 @@ const TravelSegment: React.FC<TravelSegmentProps> = ({ index, onRemove }) => {
           </div>
         )}
 
-        {isPlane && (
+        {(isPlane || isTrain || isBus) && (
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               {t("transport.carbonCompensated")}
