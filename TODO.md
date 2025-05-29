@@ -6,11 +6,11 @@ Aplicación diseñada para facilitar la recepción de datos de transporte para E
 
 ### Cambios genéricos:
 
-- [x] 1. En la pantalla inicial, al pulsar el botón de las barras que lleva a la página de Resultados agregados de todos los trayectos, debe mostrar solo resultados agregados. (`EventSelection.tsx`) - _Nota: Se modificó el botón para que muestre el texto "Resultados Agregados" además del icono. El botón sigue llevando a los resultados del evento específico._ **Completado: El botón ahora muestra "Resultados Agregados" (o su traducción correspondiente) y se ha eliminado el icono.**
+- [x] 1. En la pantalla inicial, al pulsar el botón de las barras que lleva a la página de Resultados agregados de todos los trayectos, debe mostrar solo resultados agregados. (`EventSelection.tsx`) - _Nota: Se modificó el botón para que muestre el texto "Resultados Agregados" además del icono. El botón sigue llevando a los resultados del evento específico._
   - Rama: `feature/home-aggregated-results`
-- [ ] 2. Huella de carbono total hay que cambiarlo por Huella de carbono (transporte + alojamiento). (`EventResults.tsx`, `ResultsSection.tsx`)
+- [x] 2. Huella de carbono total hay que cambiarlo por Huella de carbono (transporte + alojamiento). (`EventResults.tsx`, `ResultsSection.tsx`)
   - Rama: `feature/carbon-footprint-transport-accommodation`
-- [ ] 3. Total de participantes no tiene sentido mostrarlo, aunque sí se puede indicar el número de personas de las que se reportaron datos de transporte y el número de personas de las que se reportaron datos de alojamiento. El total de participantes en el evento es una cifra distinta y ponerlo puede llevar a error. (`EventResults.tsx`, `ResultsSection.tsx`)
+- [x] 3. Total de participantes no tiene sentido mostrarlo, aunque sí se puede indicar el número de personas de las que se reportaron datos de transporte y el número de personas de las que se reportaron datos de alojamiento. El total de participantes en el evento es una cifra distinta y ponerlo puede llevar a error. (`EventResults.tsx`, `ResultsSection.tsx`) - **Completado: Se modificó `EventResults.tsx` para mostrar el recuento de personas con datos de transporte y alojamiento reportados, y se actualizaron las traducciones.**
   - Rama: `feature/participant-type-reporting`
 - [ ] 4. Ahora mismo parece que no funciona bien ese dato, ya que pone que el total de participantes son 5, mostrando por tipo de usuario 1 de público, 13 de proveedores, 7 de logística, 3 de participantes y 1 de personal. Revisarlo. (`ResultsSection.tsx`, `EventResults.tsx`)
   - Rama: `feature/participant-type-reporting` (o `bugfix/participant-count-display`)

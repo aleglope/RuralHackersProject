@@ -85,11 +85,10 @@
     "totalAccommodation": "Alojamiento total",
     "accommodation": "Alojamiento",
     "nightsLabel": "Noches totales de hotel",
-    "totalParticipants": "Total de participantes",
-    "participantsLabel": "Número de respuestas",
-    "participants": "participantes",
     "trips": "Número de viajes",
-    "print": "Imprimir resultados"
+    "print": "Imprimir resultados",
+    "transportDataReported": "Personas con datos de transporte reportados",
+    "accommodationDataReported": "Personas con datos de alojamiento reportados"
   },
   "events": {
     "selectTitle": "Seleccionar Evento",
