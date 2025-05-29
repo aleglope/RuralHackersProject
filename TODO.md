@@ -31,9 +31,34 @@ Aplicación diseñada para facilitar la recepción de datos de transporte para E
   - Rama: `feature/travel-segments-people-vehicles`
 - [x] 11. Tren y autobús tienen que tener la opción de que la compañía compense las emisiones, igual que está en el caso del avión. (`TravelForm.tsx`, `TravelSegment.tsx`) - **Completado: Se añadió checkbox de compensación para tren y autobús en la UI, y la lógica de cálculo aplica la reducción.**
   - Rama: `feature/travel-segments-fuel-emission-offset`
-- [ ] 12. Hay que poner un ejemplo debajo de tramos de viaje, para que las personas entiendan que los tramos hacen referencia a los distintos tipos de transporte utilizados y/o a los propios trayectos realizados: Una persona que va de Barcelona a Santiago en avión, durante tres días hace ida y vuelta entre Santiago y Portas en coche y finalmente vuelve de Santiago a Barcelona en avión, debe poner un tramo para el viaje en avión (número de viajes, 2) y pulsar en "añadir otro tramo" para añadir los viajes en coche (número de viajes, 6). (`TravelForm.tsx`, `TravelSegment.tsx`)
+- [x] 12. Hay que poner un ejemplo debajo de tramos de viaje, para que las personas entiendan que los tramos hacen referencia a los distintos tipos de transporte utilizados y/o a los propios trayectos realizados: Una persona que va de Barcelona a Santiago en avión, durante tres días hace ida y vuelta entre Santiago y Portas en coche y finalmente vuelve de Santiago a Barcelona en avión, debe poner un tramo para el viaje en avión (número de viajes, 2) y pulsar en "añadir otro tramo" para añadir los viajes en coche (número de viajes, 6). (`TravelForm.tsx`, `TravelSegment.tsx`) - **Completado: Se añadió texto explicativo con un ejemplo en la sección de tramos del viaje.**
   - Rama: `feature/travel-segments-example`
 
 ### Otros:
 
-- [ ] 13. Aunque el evento Portamérica 2025 está bien guardado para hacer modificaciones después, ahora urge más el Campeonato Mundial de Triatlón Multideporte Pontevedra 2025. (`TravelForm.tsx`, `TravelSegment.tsx`
+- [ ] 13. Aunque el evento Portamérica 2025 está bien guardado para hacer modificaciones después, ahora urge más el Campeonato Mundial de Triatlón Multideporte Pontevedra 2025. (`TravelForm.tsx`, `TravelSegment.tsx` - podría implicar cambios en datos por defecto o lógica específica si fuera necesario)
+  - Rama: `feature/event-pontevedra-2025-config`
+
+### La tipología de personas usuarias en el caso del Campeonato Mundial de Triatlón Multideporte Pontevedra 2025 es:
+
+- [ ] 14. Asistentes acreditados al EVENTO , diferenciando entre: LOC, VIP, Timing, Foto, Medios, Producción de TV, Delegaciones deportivas, otro (especificar). Personas que trabajan para preparar y organizar el evento , incluyendo los servicios de transporte del personal. (Deben tener un espacio para especificar, por ejemplo, descripción). Servicios de transporte prestados a otras partes interesadas , eligiendo entre autobuses lanzadera para los espectadores y servicios de transporte para los equipos (aeropuerto-sede). Público. Proveedores. El alojamiento solo hay que pedirlo a asistentes acreditados al evento y al público. (`TravelForm.tsx`, `TravelSegment.tsx`, posiblemente `Database.ts` si hay nuevos enums o tablas)
+  - Rama: `feature/event-pontevedra-2025-config`
+
+## Ramas de desarrollo:
+
+- `feature/home-aggregated-results`
+- `feature/carbon-footprint-transport-accommodation`
+- `feature/participant-type-reporting`
+- `feature/user-typology-selection`
+- `feature/travel-segments-basic-fields`
+- `feature/travel-segments-frequency-dates`
+- `feature/travel-segments-fuel-emission-offset`
+- `feature/travel-segments-people-vehicles`
+- `feature/travel-segments-example`
+- `feature/event-pontevedra-2025-config`
+
+### Ramas auxiliares (opcional):
+
+- `refactor/travel-segment-components`
+- `chore/i18n-spanish-translations`
+- `bugfix/participant-count-display`

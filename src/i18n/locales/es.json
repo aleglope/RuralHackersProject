@@ -72,7 +72,9 @@
     "endDate": "Fecha de fin",
     "selectVehicleType": "Selecciona un tipo de vehículo",
     "fuelTypeRequired": "El tipo de combustible es obligatorio para este vehículo",
-    "numberOfVehicles": "Número de vehículos"
+    "numberOfVehicles": "Número de vehículos",
+    "segmentsExampleTitle": "Ejemplo:",
+    "segmentsExampleBody": "Una persona que va de Barcelona a Santiago en avión, durante tres días hace ida y vuelta entre Santiago y Portas en coche y finalmente vuelve de Santiago a Barcelona en avión, debe poner un tramo para el viaje en avión (frecuencia, 2) y pulsar en \"Añadir tramo\" para añadir los viajes en coche (frecuencia, 6)."
   },
   "accommodation": {
     "title": "Alojamiento",

@@ -72,7 +72,9 @@
     "endDate": "End Date",
     "selectVehicleType": "Select a vehicle type",
     "fuelTypeRequired": "Fuel type is required for this vehicle",
-    "numberOfVehicles": "Number of vehicles"
+    "numberOfVehicles": "Number of vehicles",
+    "segmentsExampleTitle": "Example:",
+    "segmentsExampleBody": "A person traveling from Barcelona to Santiago by plane, then for three days makes a round trip between Santiago and Portas by car, and finally returns from Santiago to Barcelona by plane, should enter one segment for the plane trip (frequency, 2) and click \"Add segment\" to add the car trips (frequency, 6)."
   },
   "accommodation": {
     "title": "Accommodation",

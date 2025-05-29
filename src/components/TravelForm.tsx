@@ -359,6 +359,16 @@ const TravelForm = () => {
                 )}
               </span>
             </p>
+            {/* Ejemplo de uso de tramos */}
+            <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
+              <p className="text-sm font-semibold text-blue-700">
+                {t("transport.segmentsExampleTitle")}
+              </p>
+              <p className="text-sm text-blue-600">
+                {t("transport.segmentsExampleBody")}
+              </p>
+            </div>
+
             {methods.watch("segments")?.map((_, index) => (
               <TravelSegment
                 key={index}
