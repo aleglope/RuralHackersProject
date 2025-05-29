@@ -102,7 +102,8 @@
     "startDate": "Start Date",
     "endDate": "End Date",
     "select": "Select Event",
-    "noEvents": "No events available"
+    "noEvents": "No events available",
+    "aggregatedResultsButtonLabel": "Aggregated Results"
   },
   "auth": {
     "login": "Login",
