@@ -36,8 +36,7 @@ Aplicación diseñada para facilitar la recepción de datos de transporte para E
 
 ### Otros:
 
-- [ ] 13. Aunque el evento Portamérica 2025 está bien guardado para hacer modificaciones después, ahora urge más el Campeonato Mundial de Triatlón Multideporte Pontevedra 2025. (`TravelForm.tsx`, `TravelSegment.tsx` - podría implicar cambios en datos por defecto o lógica específica si fuera necesario)
-  - Rama: `feature/event-pontevedra-2025-config`
+- [ ] 13. Aunque el evento Portamérica 2025 está bien guardado para hacer modificaciones después, ahora urge más el Campeonato Mundial de Triatlón Multideporte Pontevedra 2025.
 
 ### La tipología de personas usuarias en el caso del Campeonato Mundial de Triatlón Multideporte Pontevedra 2025 es:
 
