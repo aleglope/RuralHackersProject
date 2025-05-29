@@ -75,7 +75,7 @@
     "aggregatedResults": "Resultados agregados de todas as viaxes",
     "noData": "Non hai datos dispoñibles para este evento",
     "carbonFootprint": "Pegada de carbono",
-    "totalCarbonFootprint": "Pegada de carbono total",
+    "totalCarbonFootprint": "Pegada de carbono (transporte + aloxamento)",
     "treesNeeded": "Necesitaríanse {{count}} árbores para compensar estas emisións nun ano",
     "totalDistance": "Distancia total percorrida",
     "distance": "Distancia",

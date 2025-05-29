@@ -75,7 +75,7 @@
     "aggregatedResults": "Aggregated results for all trips",
     "noData": "No data available for this event",
     "carbonFootprint": "Carbon footprint",
-    "totalCarbonFootprint": "Total carbon footprint",
+    "totalCarbonFootprint": "Carbon footprint (transport + accommodation)",
     "treesNeeded": "{{count}} trees would be needed to offset these emissions in one year",
     "totalDistance": "Total distance traveled",
     "distance": "Distance",
