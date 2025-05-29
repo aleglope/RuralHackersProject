@@ -12,9 +12,9 @@ Aplicación diseñada para facilitar la recepción de datos de transporte para E
   - Rama: `feature/carbon-footprint-transport-accommodation`
 - [x] 3. Total de participantes no tiene sentido mostrarlo, aunque sí se puede indicar el número de personas de las que se reportaron datos de transporte y el número de personas de las que se reportaron datos de alojamiento. El total de participantes en el evento es una cifra distinta y ponerlo puede llevar a error. (`EventResults.tsx`, `ResultsSection.tsx`) - **Completado: Se modificó `EventResults.tsx` para mostrar el recuento de personas con datos de transporte y alojamiento reportados, y se actualizaron las traducciones.**
   - Rama: `feature/participant-type-reporting`
-- [ ] 4. Ahora mismo parece que no funciona bien ese dato, ya que pone que el total de participantes son 5, mostrando por tipo de usuario 1 de público, 13 de proveedores, 7 de logística, 3 de participantes y 1 de personal. Revisarlo. (`ResultsSection.tsx`, `EventResults.tsx`)
+- [x] 4. Ahora mismo parece que no funciona bien ese dato, ya que pone que el total de participantes son 5, mostrando por tipo de usuario 1 de público, 13 de proveedores, 7 de logística, 3 de participantes y 1 de personal. Revisarlo. (`ResultsSection.tsx`, `EventResults.tsx`) - **Completado: Abordado con los cambios del punto 3, que modifican cómo se presenta esta información.**
   - Rama: `feature/participant-type-reporting` (o `bugfix/participant-count-display`)
-- [ ] 5. En la pantalla de tipo de transporte debería poner Tipología de persona usuaria. En el caso de seleccionar "otro", debe obligarse a especificarlo (con un cuadro de introducción de texto). (`TravelForm.tsx`, `TravelSegment.tsx`)
+- [x] 5. En la pantalla de tipo de transporte debería poner Tipología de persona usuaria. En el caso de seleccionar "otro", debe obligarse a especificarlo (con un cuadro de introducción de texto). (`TravelForm.tsx`, `TravelSegment.tsx`)
   - Rama: `feature/user-typology-selection`
 
 ### En la pantalla de tramos del viaje:

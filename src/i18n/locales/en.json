@@ -21,14 +21,15 @@
     "submitting": "Submitting..."
   },
   "userType": {
-    "title": "Transport type",
+    "title": "User typology",
     "public": "Public",
     "participant": "Participant",
     "logistics": "Logistics",
     "provider": "Provider",
     "staff": "Staff",
     "other": "Other",
-    "required": "Please select a user type"
+    "required": "Please select a user type",
+    "specifyOther": "Please specify the 'Other' user type"
   },
   "transport": {
     "segments": "Travel segments",

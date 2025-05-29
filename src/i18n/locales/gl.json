@@ -21,14 +21,15 @@
     "submitting": "Enviando..."
   },
   "userType": {
-    "title": "Tipo de transporte",
+    "title": "Tipoloxía de persoa usuaria",
     "public": "Público",
     "participant": "Participante",
     "logistics": "Loxística",
     "provider": "Provedor",
     "staff": "Persoal",
     "other": "Outro",
-    "required": "Selecciona un tipo de usuario"
+    "required": "Selecciona un tipo de usuario",
+    "specifyOther": "Por favor, especifica o tipo de persoa usuaria 'Outro'"
   },
   "transport": {
     "segments": "Tramos da viaxe",
