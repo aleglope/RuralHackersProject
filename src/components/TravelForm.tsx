@@ -158,7 +158,7 @@ const defaultSegment = {
   destination: "Pontevedra",
   frequency: 1,
   vehicleTypeOtherDetails: "",
-  numberOfVehicles: undefined,
+  numberOfVehicles: 1,
 };
 
 const UserTypeOtherInput = () => {
