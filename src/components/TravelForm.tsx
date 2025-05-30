@@ -233,7 +233,9 @@ const AccreditedRoleInput = () => {
             {...register("accreditedRole")}
             className="w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
           >
-            <option value="">{t("userType.selectAccreditedRole")}</option>
+            <option value="" disabled>
+              {t("userType.selectAccreditedRole")}
+            </option>
             {accreditedRoles.map((role) => (
               <option key={role} value={role}>
                 {t(`userType.${role}`)}
@@ -337,7 +339,9 @@ const TransportServiceTypeInput = () => {
           {...register("transportServiceType")}
           className="w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
         >
-          <option value="">{t("userType.selectTransportServiceType")}</option>
+          <option value="" disabled>
+            {t("userType.selectTransportServiceType")}
+          </option>
           {transportServiceTypes.map((type) => (
             <option key={type} value={type}>
               {t(`userType.${type}`)}
