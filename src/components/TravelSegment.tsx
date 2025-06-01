@@ -2,6 +2,15 @@ import React from "react";
 import { useTranslation } from "react-i18next";
 import { useFormContext, useWatch } from "react-hook-form";
 import { TransportType, FuelType, VanTruckSize, UserType } from "../types";
+import {
+  ALL_TRANSPORT_TYPES,
+  ALL_FUEL_TYPES,
+  VAN_SIZES,
+  TRUCK_SIZES,
+  FUEL_REQUIRED_VEHICLES,
+  CARBON_COMPENSATION_VEHICLES,
+  MULTIPLE_VEHICLES_TYPES,
+} from "../constants";
 
 interface TravelSegmentProps {
   index: number;
@@ -18,52 +27,16 @@ const TravelSegment: React.FC<TravelSegmentProps> = ({ index, onRemove }) => {
   } = useFormContext();
   const vehicleType = watch(`segments.${index}.vehicleType`);
 
-  const transportTypes: TransportType[] = [
-    "walking",
-    "bicycle",
-    "motorcycle",
-    "car",
-    "van",
-    "bus",
-    "truck",
-    "train",
-    "plane",
-    "other",
-  ];
-
-  const fuelTypes: FuelType[] = [
-    "gasoline",
-    "diesel",
-    "hybrid",
-    "pluginHybrid",
-    "electric",
-    "unknown",
-  ];
-
-  const vanTruckSizes: VanTruckSize[] = [
-    "<7.5t",
-    "7.5-12t",
-    "20-26t",
-    "34-40t",
-    "50-60t",
-  ];
-
-  const needsFuelType = ["car", "van", "motorcycle", "truck", "bus"].includes(
-    vehicleType
-  );
+  const needsFuelType = FUEL_REQUIRED_VEHICLES.includes(vehicleType);
   const isVan = vehicleType === "van";
   const isTruck = vehicleType === "truck";
   const isPlane = vehicleType === "plane";
   const isTrain = vehicleType === "train";
   const isBus = vehicleType === "bus";
   const isOtherVehicle = vehicleType === "other";
-  const needsNumberOfVehicles = [
-    "car",
-    "motorcycle",
-    "van",
-    "truck",
-    "bus",
-  ].includes(vehicleType);
+  const needsNumberOfVehicles = MULTIPLE_VEHICLES_TYPES.includes(vehicleType);
+  const canHaveCarbonCompensation =
+    CARBON_COMPENSATION_VEHICLES.includes(vehicleType);
 
   const today = new Date().toISOString().split("T")[0];
 
@@ -94,7 +67,7 @@ const TravelSegment: React.FC<TravelSegmentProps> = ({ index, onRemove }) => {
             <option value="" disabled>
               {t("transport.selectVehicleType")}
             </option>
-            {transportTypes.map((type) => (
+            {ALL_TRANSPORT_TYPES.map((type) => (
               <option key={type} value={type}>
                 {t(`transport.${type}`)}
               </option>
@@ -146,7 +119,7 @@ const TravelSegment: React.FC<TravelSegmentProps> = ({ index, onRemove }) => {
               <option value="" disabled>
                 {t("transport.selectFuelType")}
               </option>
-              {fuelTypes.map((type) => (
+              {ALL_FUEL_TYPES.map((type) => (
                 <option key={type} value={type}>
                   {t(`transport.fuel.${type}`)}
                 </option>
@@ -179,7 +152,7 @@ const TravelSegment: React.FC<TravelSegmentProps> = ({ index, onRemove }) => {
               className="w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
             >
               <option value="">Select van size</option>
-              {vanTruckSizes.slice(0, 2).map((size) => (
+              {VAN_SIZES.map((size) => (
                 <option key={size} value={size}>
                   {size}
                 </option>
@@ -198,7 +171,7 @@ const TravelSegment: React.FC<TravelSegmentProps> = ({ index, onRemove }) => {
               className="w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
             >
               <option value="">Select truck size</option>
-              {vanTruckSizes.map((size) => (
+              {TRUCK_SIZES.map((size) => (
                 <option key={size} value={size}>
                   {size}
                 </option>
@@ -207,7 +180,7 @@ const TravelSegment: React.FC<TravelSegmentProps> = ({ index, onRemove }) => {
           </div>
         )}
 
-        {(isPlane || isTrain || isBus) && (
+        {canHaveCarbonCompensation && (
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
               {t("transport.carbonCompensated")}

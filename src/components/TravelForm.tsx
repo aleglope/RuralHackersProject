@@ -15,6 +15,12 @@ import {
   AccreditedRole,
   TransportServiceType,
 } from "../types";
+import {
+  VISIBLE_USER_TYPES,
+  ALL_ACCREDITED_ROLES,
+  ALL_TRANSPORT_SERVICE_TYPES,
+  ACCOMMODATION_REQUIRED_USER_TYPES,
+} from "../constants";
 import TravelSegment from "./TravelSegment";
 import ResultsSection from "./ResultsSection";
 import { supabase } from "../lib/supabase";
@@ -196,7 +202,6 @@ const UserTypeOtherInput = () => {
   return null;
 };
 
-// New component for Accredited Role
 const AccreditedRoleInput = () => {
   const { t } = useTranslation();
   const {
@@ -207,17 +212,6 @@ const AccreditedRoleInput = () => {
   const userType = useWatch({ control, name: "userType" });
   const accreditedRole = useWatch({ control, name: "accreditedRole" });
 
-  const accreditedRoles: AccreditedRole[] = [
-    "loc",
-    "vip",
-    "timing",
-    "photo",
-    "media",
-    "tv_production",
-    "sports_delegations",
-    "other_accredited_role",
-  ];
-
   if (userType === "event_staff_accredited") {
     return (
       <div className="mt-6 space-y-4">
@@ -226,7 +220,7 @@ const AccreditedRoleInput = () => {
             {t("userType.accreditedRole")}
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
-            {accreditedRoles.map((role) => (
+            {ALL_ACCREDITED_ROLES.map((role) => (
               <label
                 key={role}
                 className={`relative flex items-center p-3 border rounded-lg cursor-pointer hover:bg-green-50 transition-colors ${
@@ -279,7 +273,6 @@ const AccreditedRoleInput = () => {
   return null;
 };
 
-// New component for Organization Staff Details
 const OrganizationStaffDetailsInput = () => {
   const { t } = useTranslation();
   const {
@@ -315,7 +308,6 @@ const OrganizationStaffDetailsInput = () => {
   return null;
 };
 
-// New component for Transport Service Type
 const TransportServiceTypeInput = () => {
   const { t } = useTranslation();
   const {
@@ -328,10 +320,6 @@ const TransportServiceTypeInput = () => {
     control,
     name: "transportServiceType",
   });
-  const transportServiceTypes: TransportServiceType[] = [
-    "spectator_shuttle_bus",
-    "team_transport_services",
-  ];
 
   if (userType === "transport_services_stakeholders") {
     return (
@@ -341,7 +329,7 @@ const TransportServiceTypeInput = () => {
             {t("userType.transportServiceType")}
           </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {transportServiceTypes.map((type) => (
+            {ALL_TRANSPORT_SERVICE_TYPES.map((type) => (
               <label
                 key={type}
                 className={`relative flex items-center p-3 border rounded-lg cursor-pointer hover:bg-green-50 transition-colors ${
@@ -392,17 +380,7 @@ const TravelForm = () => {
     mode: "onChange",
   });
 
-  const userTypes: UserType[] = [
-    "public",
-    // "participant", // Temporalmente oculto - puede reactivarse eliminando este comentario
-    "event_staff_accredited",
-    "internal_staff_organization",
-    "transport_services_stakeholders",
-    "provider",
-    // "logistics", // Temporalmente oculto - puede reactivarse eliminando este comentario
-    // "staff", // Temporalmente oculto - puede reactivarse eliminando este comentario
-    "other",
-  ];
+  const userTypes = VISIBLE_USER_TYPES;
 
   const saveToDatabase = async (data: TravelData) => {
     setIsSubmitting(true);
@@ -535,8 +513,7 @@ const TravelForm = () => {
   const [step, setStep] = useState(1);
   const currentUserType = methods.watch("userType");
   const shouldShowAccommodationStep =
-    currentUserType === "public" ||
-    currentUserType === "event_staff_accredited";
+    ACCOMMODATION_REQUIRED_USER_TYPES.includes(currentUserType as UserType);
 
   const maxSteps = shouldShowAccommodationStep ? 4 : 3;
 
@@ -584,7 +561,6 @@ const TravelForm = () => {
               </p>
             )}
             <UserTypeOtherInput />
-            {/* Placeholder for new conditional inputs */}
             <AccreditedRoleInput />
             <OrganizationStaffDetailsInput />
             <TransportServiceTypeInput />
@@ -606,7 +582,6 @@ const TravelForm = () => {
                 )}
               </span>
             </p>
-            {/* Ejemplo de uso de tramos */}
             <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-md">
               <p className="text-sm font-semibold text-blue-700">
                 {t("transport.segmentsExampleTitle")}
