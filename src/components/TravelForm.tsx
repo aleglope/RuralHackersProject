@@ -220,30 +220,33 @@ const AccreditedRoleInput = () => {
 
   if (userType === "event_staff_accredited") {
     return (
-      <div className="mt-4 space-y-2">
+      <div className="mt-6 space-y-4">
         <div>
-          <label
-            htmlFor="accreditedRole"
-            className="block text-sm font-medium text-gray-700 mb-1"
-          >
+          <h3 className="text-lg font-medium text-gray-900 mb-3">
             {t("userType.accreditedRole")}
-          </label>
-          <select
-            id="accreditedRole"
-            {...register("accreditedRole")}
-            className="w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
-          >
-            <option value="" disabled>
-              {t("userType.selectAccreditedRole")}
-            </option>
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
             {accreditedRoles.map((role) => (
-              <option key={role} value={role}>
-                {t(`userType.${role}`)}
-              </option>
+              <label
+                key={role}
+                className={`relative flex items-center p-3 border rounded-lg cursor-pointer hover:bg-green-50 transition-colors ${
+                  accreditedRole === role
+                    ? "bg-green-50 border-green-500"
+                    : "border-gray-300"
+                }`}
+              >
+                <input
+                  type="radio"
+                  {...register("accreditedRole")}
+                  value={role}
+                  className="h-4 w-4 text-green-600 border-gray-300 focus:ring-green-500"
+                />
+                <span className="ml-3 text-sm">{t(`userType.${role}`)}</span>
+              </label>
             ))}
-          </select>
+          </div>
           {errors.accreditedRole && (
-            <p className="mt-1 text-sm text-red-600">
+            <p className="mt-2 text-sm text-red-600">
               {errors.accreditedRole.message?.toString()}
             </p>
           )}
@@ -252,7 +255,7 @@ const AccreditedRoleInput = () => {
           <div>
             <label
               htmlFor="accreditedRoleOtherDetails"
-              className="block text-sm font-medium text-gray-700 mb-1"
+              className="block text-sm font-medium text-gray-700 mb-2"
             >
               {t("userType.specifyAccreditedRoleOther")}
             </label>
@@ -261,6 +264,7 @@ const AccreditedRoleInput = () => {
               id="accreditedRoleOtherDetails"
               {...register("accreditedRoleOtherDetails")}
               className="w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
+              placeholder={t("userType.specifyAccreditedRoleOther")}
             />
             {errors.accreditedRoleOtherDetails && (
               <p className="mt-1 text-sm text-red-600">
@@ -320,6 +324,10 @@ const TransportServiceTypeInput = () => {
     formState: { errors },
   } = useFormContext<TravelData>();
   const userType = useWatch({ control, name: "userType" });
+  const transportServiceType = useWatch({
+    control,
+    name: "transportServiceType",
+  });
   const transportServiceTypes: TransportServiceType[] = [
     "spectator_shuttle_bus",
     "team_transport_services",
@@ -327,32 +335,37 @@ const TransportServiceTypeInput = () => {
 
   if (userType === "transport_services_stakeholders") {
     return (
-      <div className="mt-4">
-        <label
-          htmlFor="transportServiceType"
-          className="block text-sm font-medium text-gray-700 mb-1"
-        >
-          {t("userType.transportServiceType")}
-        </label>
-        <select
-          id="transportServiceType"
-          {...register("transportServiceType")}
-          className="w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500"
-        >
-          <option value="" disabled>
-            {t("userType.selectTransportServiceType")}
-          </option>
-          {transportServiceTypes.map((type) => (
-            <option key={type} value={type}>
-              {t(`userType.${type}`)}
-            </option>
-          ))}
-        </select>
-        {errors.transportServiceType && (
-          <p className="mt-1 text-sm text-red-600">
-            {errors.transportServiceType.message?.toString()}
-          </p>
-        )}
+      <div className="mt-6 space-y-4">
+        <div>
+          <h3 className="text-lg font-medium text-gray-900 mb-3">
+            {t("userType.transportServiceType")}
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {transportServiceTypes.map((type) => (
+              <label
+                key={type}
+                className={`relative flex items-center p-3 border rounded-lg cursor-pointer hover:bg-green-50 transition-colors ${
+                  transportServiceType === type
+                    ? "bg-green-50 border-green-500"
+                    : "border-gray-300"
+                }`}
+              >
+                <input
+                  type="radio"
+                  {...register("transportServiceType")}
+                  value={type}
+                  className="h-4 w-4 text-green-600 border-gray-300 focus:ring-green-500"
+                />
+                <span className="ml-3 text-sm">{t(`userType.${type}`)}</span>
+              </label>
+            ))}
+          </div>
+          {errors.transportServiceType && (
+            <p className="mt-2 text-sm text-red-600">
+              {errors.transportServiceType.message?.toString()}
+            </p>
+          )}
+        </div>
       </div>
     );
   }
@@ -381,13 +394,13 @@ const TravelForm = () => {
 
   const userTypes: UserType[] = [
     "public",
-    "participant",
+    // "participant", // Temporalmente oculto - puede reactivarse eliminando este comentario
     "event_staff_accredited",
     "internal_staff_organization",
     "transport_services_stakeholders",
     "provider",
-    "logistics",
-    "staff",
+    // "logistics", // Temporalmente oculto - puede reactivarse eliminando este comentario
+    // "staff", // Temporalmente oculto - puede reactivarse eliminando este comentario
     "other",
   ];
 
